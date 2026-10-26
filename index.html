@@ -1,108 +1,153 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sales Motion Map — BMC Helix Interview</title>
+<title>Sales Motion Map — BMC Helix Interview Prep</title>
 <style>
   :root {
-    --ink: #101410;
-    --lime: #C6EF3A;
-    --paper: #F3F0E6;
-    --off: #EEF2E8;
-    --muted: #6b7268;
-    --card: #ffffff;
-    --border: #d9ddd2;
-    --red: #e24b4b;
-    --blue: #3b82f6;
-    --amber: #f59e0b;
+    --ink: #101410; --lime: #C6EF3A; --paper: #F3F0E6; --off: #EEF2E8;
+    --muted: #5a6358; --card: #ffffff; --border: #d9ddd4; --red: #c0392b;
+    --blue: #2e5aac; --teal: #0e7c7b;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--paper); color: var(--ink); }
-  header { background: var(--ink); color: var(--paper); padding: 28px 40px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; }
-  header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
-  header h1 span { color: var(--lime); }
-  .nav { display:flex; gap:8px; flex-wrap:wrap; }
-  .nav button { background: transparent; border: 1px solid #2a322a; color: var(--paper); padding: 8px 16px; border-radius: 6px; cursor:pointer; font-size: 13px; transition: all .15s; }
-  .nav button:hover, .nav button.active { background: var(--lime); color: var(--ink); border-color: var(--lime); }
-  main { max-width: 1100px; margin: 0 auto; padding: 32px 40px 80px; }
-  .slide { display:none; animation: fade .25s ease; }
+  body { font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; background:var(--paper); color:var(--ink); line-height:1.5; }
+  header { background:var(--ink); color:var(--paper); padding:18px 32px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
+  header h1 { font-size:18px; letter-spacing:.5px; }
+  header .sub { font-size:13px; color:var(--lime); margin-top:2px; }
+  nav { display:flex; gap:6px; padding:12px 32px; background:var(--off); border-bottom:1px solid var(--border); overflow-x:auto; position:sticky; top:58px; z-index:99; }
+  nav button { flex:0 0 auto; border:1px solid var(--border); background:var(--card); color:var(--ink); padding:8px 14px; border-radius:20px; font-size:13px; cursor:pointer; transition:all .15s; }
+  nav button.active { background:var(--lime); border-color:var(--lime); font-weight:600; }
+  nav button:hover { border-color:var(--ink); }
+  main { max-width:1100px; margin:0 auto; padding:28px 32px 80px; }
+  .slide { display:none; animation:fade .25s ease; }
   .slide.active { display:block; }
-  @keyframes fade { from { opacity:0; transform:translateY(8px);} to { opacity:1; transform:none; } }
-  h2 { font-size: 26px; margin-bottom: 6px; }
-  .sub { color: var(--muted); margin-bottom: 28px; font-size: 15px; }
-  .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; }
-  .card h3 { font-size: 16px; margin-bottom: 10px; display:flex; align-items:center; gap:8px; }
-  .card p, .card li { font-size: 14px; line-height: 1.55; color: #333; }
-  .card ul { padding-left: 18px; }
-  .card li { margin-bottom: 6px; }
-  .tag { display:inline-block; font-size: 11px; font-weight:700; padding: 3px 8px; border-radius: 4px; text-transform:uppercase; letter-spacing:.5px; }
-  .tag-lime { background: var(--lime); color: var(--ink); }
-  .tag-blue { background: #dbeafe; color: #1e40af; }
-  .tag-amber { background: #fef3c7; color: #92400e; }
-  .tag-red { background: #fee2e2; color: #991b1b; }
-  .formula { display:flex; gap:12px; margin-top: 24px; flex-wrap:wrap; }
-  .pill { background: var(--ink); color: var(--paper); border-radius: 999px; padding: 10px 20px; font-size: 13px; font-weight:600; }
-  .pill span { color: var(--lime); }
-  .flow { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin: 20px 0; }
-  .flow .step { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; font-size: 13px; font-weight:600; min-width: 120px; text-align:center; }
-  .flow .arrow { color: var(--muted); font-size: 18px; }
-  .stakeholder { border-left: 4px solid var(--lime); }
-  .stakeholder.blue { border-left-color: var(--blue); }
-  .stakeholder.amber { border-left-color: var(--amber); }
-  .stakeholder.red { border-left-color: var(--red); }
-  .quote { background: var(--off); border-left: 4px solid var(--lime); padding: 16px 20px; border-radius: 0 8px 8px 0; font-style: italic; font-size: 14px; margin: 18px 0; }
-  .footer-note { margin-top: 40px; font-size: 12px; color: var(--muted); text-align:center; }
-  @media print { header { position:relative; } .nav { display:none; } .slide { display:block !important; page-break-after: always; } }
-  @media (max-width: 640px) { header { flex-direction:column; gap:14px; align-items:flex-start; } main { padding: 24px 18px 60px; } }
+  @keyframes fade { from{opacity:0;transform:translateY(6px);} to{opacity:1;transform:none;} }
+  h2 { font-size:26px; margin-bottom:4px; }
+  .lede { color:var(--muted); margin-bottom:22px; font-size:15px; }
+  .grid { display:grid; gap:16px; }
+  .grid-2 { grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); }
+  .grid-3 { grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:18px; }
+  .card h3 { font-size:15px; margin-bottom:8px; display:flex; align-items:center; gap:8px; }
+  .card p, .card li { font-size:13.5px; color:#333; }
+  .card ul { padding-left:18px; }
+  .card li { margin-bottom:4px; }
+  .tag { display:inline-block; font-size:11px; font-weight:600; padding:2px 8px; border-radius:10px; background:var(--off); color:var(--muted); letter-spacing:.3px; }
+  .tag.lime { background:var(--lime); color:var(--ink); }
+  .tag.red { background:#f8d7da; color:var(--red); }
+  .tag.blue { background:#dbe6f7; color:var(--blue); }
+  .tag.teal { background:#d5eceb; color:var(--teal); }
+  .flow { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:18px 0; }
+  .flow .step { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:12px 16px; font-size:13px; flex:1 1 140px; text-align:center; }
+  .flow .step b { display:block; margin-bottom:2px; }
+  .flow .arrow { color:var(--muted); font-size:18px; }
+  .stakeholder { border-left:4px solid var(--lime); padding:12px 16px; margin-bottom:12px; background:var(--card); border-radius:0 10px 10px 0; }
+  .stakeholder h4 { font-size:14px; margin-bottom:4px; }
+  .stakeholder .role { font-size:12px; color:var(--muted); margin-bottom:6px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; background:var(--card); border-radius:10px; overflow:hidden; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--border); vertical-align:top; }
+  th { background:var(--off); font-weight:600; }
+  .quote { border-left:4px solid var(--lime); padding:14px 18px; background:var(--card); border-radius:0 10px 10px 0; font-style:italic; margin:16px 0; font-size:14px; }
+  .pill-row { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+  .pill { background:var(--ink); color:var(--paper); border-radius:20px; padding:10px 16px; font-size:13px; flex:1 1 200px; }
+  .pill b { color:var(--lime); display:block; margin-bottom:2px; }
+  .lost { border-left-color:var(--red); }
+  .footer-note { margin-top:30px; font-size:12px; color:var(--muted); text-align:center; }
+  @media print { header, nav { display:none; } .slide { display:block !important; page-break-after:always; } main { padding:0; max-width:none; } }
+  @media (max-width:640px) { header, nav, main { padding-left:16px; padding-right:16px; } h2 { font-size:21px; } }
 </style>
 </head>
 <body>
 <header>
-  <h1>Sales Motion Map <span>// BMC Helix</span></h1>
-  <nav class="nav">
-    <button class="active" data-slide="0">1. Pipeline</button>
-    <button data-slide="1">2. Stakeholder</button>
-    <button data-slide="2">3. Cases</button>
-    <button data-slide="3">4. Partner</button>
-    <button data-slide="4">5. Lost Deal</button>
-    <button data-slide="5">6. BMC Bridge</button>
-  </nav>
+  <div><h1>Sales Motion Map</h1><div class="sub">BMC Helix Interview — Pipeline, Cases, Stakeholders, Bridge</div></div>
+  <div style="text-align:right;font-size:12px;color:#9fb3a0;">Confidential — internal use only</div>
 </header>
+<nav id="nav"></nav>
 <main>
-
-<!-- SLIDE 1: PIPELINE -->
-<section class="slide active" id="s0">
-  <h2>1. Pipeline Generation</h2>
-  <p class="sub">Renewal als Compelling Event — Atlassian hat kein Auto-Renew</p>
+<section class="slide active" id="s1">
+  <h2>1. Pipeline Process</h2>
+  <p class="lede">Renewal is the compelling event. Atlassian has no auto-renew — that forces a structured conversation every cycle.</p>
   <div class="flow">
-    <div class="step">Renewal Date<br><span style="font-weight:400;font-size:11px;color:var(--muted)">Compelling Event</span></div>
-    <div class="arrow">→</div>
-    <div class="step">Usage Review<br><span style="font-weight:400;font-size:11px;color:var(--muted)">Was braucht der Kunde?</span></div>
-    <div class="arrow">→</div>
-    <div class="step">Expansion<br><span style="font-weight:400;font-size:11px;color:var(--muted)">Upgrades, JSM</span></div>
-    <div class="arrow">→</div>
-    <div class="step">Competitive<br>Displacement<br><span style="font-weight:400;font-size:11px;color:var(--muted)">ServiceNow, Ivanti</span></div>
-    <div class="arrow">→</div>
-    <div class="step" style="background:var(--lime);color:var(--ink)">Win</div>
+    <div class="step"><b>1. Renewal Date</b>Compelling event — no auto-renew</div><div class="arrow">→</div>
+    <div class="step"><b>2. Usage Review</b>What does the customer actually need now?</div><div class="arrow">→</div>
+    <div class="step"><b>3. Expansion</b>Upgrades, new products, JSM on existing footprint</div><div class="arrow">→</div>
+    <div class="step"><b>4. Displacement</b>ServiceNow, Ivanti — cost + consolidation story</div><div class="arrow">→</div>
+    <div class="step"><b>5. Win</b>Business outcome held, timeline met</div>
   </div>
-  <div class="grid">
-    <div class="card">
-      <h3><span class="tag tag-lime">Größte Deals</span> DC → Cloud Migration</h3>
-      <p>Höchste Deal-Größen. Cloud-First-Strategie des Kunden als Hebel. Renewal als Sprungbrett für die Architektur-Diskussion.</p>
-    </div>
-    <div class="card">
-      <h3><span class="tag tag-blue">Land & Expand</span> Jira Service Management</h3>
-      <p>Auf bestehendem Jira + Confluence Footprint aufbauen. Service Management als nächster Schritt — nicht nur ITSM, sondern ganzes Service Management.</p>
-    </div>
-    <div class="card">
-      <h3><span class="tag tag-amber">Competitive</span> ServiceNow / Ivanti Replacement</h3>
-      <p>Kostenargument + bestehende Standardisierung. Pilot-Scope definieren, Erfolg intern erzählen lassen.</p>
-    </div>
-    <div class="card">
-      <h3><span class="tag tag-red">Deine Rolle</span> Orchestration</h3>
-      <p>Business Outcome, Stakeholder-Alignment, Timeline. SE + JSM-Overlay führen den PoC und die Technik. Du hältst alle Linien zusammen.</p>
-    </div>
+  <div class="grid grid-2">
+    <div class="card"><h3><span class="tag lime">Largest deals</span></h3><ul><li>DC → Cloud migrations (best paid)</li><li>Competitive replacements (ServiceNow, Ivanti)</li><li>Land-and-expand: JSM on top of Jira + Confluence</li></ul></div>
+    <div class="card"><h3><span class="tag">My role</span></h3><ul><li>Business outcome owner</li><li>Stakeholder alignment & timeline</li><li>SE + JSM overlay run PoC & technical validation</li><li>Partner handles implementation & on-site workshops</li></ul></div>
   </div>
-  <div class="quote">„Ich behandle das Renewal als Compelling Event und suche dann systematisch nach Expansion und Competitive Displacement — bei voller Stakeholder-Map.
+  <div class="quote">"I treat the renewal as the compelling event, then systematically look for expansion and competitive displacement while keeping the full stakeholder map engaged."</div>
+</section>
+<section class="slide" id="s2">
+  <h2>2. Multithreading — Four Lines</h2>
+  <p class="lede">Every case runs four parallel stakeholder lines. You orchestrate; specialists execute.</p>
+  <div class="stakeholder"><h4>Economic Buyer</h4><div class="role">CIO / CFO — cares about cost, risk, business outcome</div>Pitch: consolidation, TCO, time-to-value, regulatory exposure</div>
+  <div class="stakeholder"><h4>Technical Evaluator</h4><div class="role">Head of IT Ops / Infrastructure — cares about feasibility, migration risk</div>Pitch: no downtime, hybrid visibility, mainframe coverage</div>
+  <div class="stakeholder"><h4>Champion</h4><div class="role">Servicedesk lead / power user — feels the daily pain</div>Pitch: UX, fewer tools, faster workflows — they sell internally for you</div>
+  <div class="stakeholder"><h4>Compliance / Risk</h4><div class="role">Audit, DSGVO, DORA contacts</div>Pitch: audit trails, data residency, evidence — engaged early so it never becomes a blocker</div>
+  <div class="card" style="margin-top:16px;"><h3>Partner layer (Atlassian-specific)</h3><p>Atlassian sells 100% through partners. Partners run implementation and on-site workshops — something an Atlassian AE cannot do directly. At Eventim and the media conglomerate, the partner co-led the PoC. Frame it as: "I own the commercial motion and stakeholder map; the partner brings implementation depth I cannot replicate solo."</p></div>
+</section>
+<section class="slide" id="s3">
+  <h2>3. Three Anonymized Win Cases</h2>
+  <p class="lede">Industry + deal-size range only. No customer names — compliance-safe, still concrete.</p>
+  <div class="grid grid-3">
+    <div class="card"><h3>Case 1 <span class="tag teal">Insurance</span></h3><p style="font-size:12px;color:var(--muted);margin-bottom:8px;">Ivanti → JSM displacement · six-figure deal</p><ul><li>Already on Jira + Confluence</li><li>Pain: double licensing + split processes</li><li>Trigger: Ivanti renewal + UX dissatisfaction</li><li>Champion: servicedesk lead sold internally</li><li>Compliance line engaged early (audit trails, DSGVO)</li></ul></div>
+    <div class="card"><h3>Case 2 <span class="tag blue">Media</span></h3><p style="font-size:12px;color:var(--muted);margin-bottom:8px;">ServiceNow → JSM · mid seven-figure</p><ul><li>ServiceNow renewal with sharp price increase</li><li>CFO + CIO aligned before competitor could counter</li><li>HR-IT as early adopter pilot</li><li>Pilot success story spread internally</li><li>Partner co-led PoC + on-site workshops</li></ul></div>
+    <div class="card"><h3>Case 3 <span class="tag lime">Entertainment</span></h3><p style="font-size:12px;color:var(--muted);margin-bottom:8px;">DC → Cloud migration · large deal</p><ul><li>Data Center EOL + cloud-first mandate</li><li>Renewal used as springboard to strategy discussion</li><li>Security involved from day one (millions of users)</li><li>Event-ops manager as champion (peak-load pain)</li><li>Cutover held against renewal deadline</li></ul></div>
+  </div>
+  <div class="pill-row"><div class="pill"><b>Common formula</b>Renewal as trigger → business-outcome lever → four stakeholder lines → you orchestrate, SE/overlay/partner execute</div></div>
+</section>
+<section class="slide" id="s4">
+  <h2>4. Lost Deal — The Honest Gap</h2>
+  <p class="lede">JSM loses in regulated environments where Atlassian's cloud-first strategy doesn't fit. This is not a failure story — it's the bridge to BMC.</p>
+  <div class="card lost"><h3>What happened</h3><ul><li>Large regulated customer (bank / insurer) needed <b>on-prem or hybrid</b> — could not move 100% to cloud</li><li>Atlassian Data Center is EOL 2029; cloud-first is non-negotiable for us</li><li>JSM could not meet the data-residency / control requirement</li><li>Deal lost to a vendor with native hybrid + on-prem depth</li></ul></div>
+  <div class="grid grid-2" style="margin-top:16px;">
+    <div class="card"><h3>Why this matters</h3><p>Many large European banks and insurers still require hybrid. DORA demands full visibility of dependencies — you can't assess risk you can't see. If the platform can't run where the data lives, the conversation ends.</p></div>
+    <div class="card"><h3>Why this is my reason to move</h3><p>I have seen this gap repeatedly from the Atlassian side. BMC Helix offers cloud, on-prem and hybrid natively — exactly the deployment flexibility these accounts need. I want to sell into that space, not lose deals to it.</p></div>
+  </div>
+  <div class="quote">"Atlassian is strong on DevOps and land-and-expand. But in regulated financial services, hybrid visibility and operational resilience go further than JSM can reach today. That's the gap I want to close — at BMC."</div>
+</section>
+<section class="slide" id="s5">
+  <h2>5. The Bridge to BMC Helix</h2>
+  <p class="lede">Where BMC is stronger for banks & insurers — and how to say it without trashing Atlassian.</p>
+  <table>
+    <tr><th>Area</th><th>BMC Helix</th><th>Atlassian JSM</th><th>ServiceNow</th></tr>
+    <tr><td><b>Agentic AI</b></td><td>Agents execute low-risk actions (Ticket Resolver, Change Coordinator) + Agent Outcomes</td><td>Mostly assistive (Rovo, Virtual Service Agent)</td><td>Now Assist — strong but co-pilot style</td></tr>
+    <tr><td><b>Mainframe</b></td><td>Native z/OS discovery in service model</td><td>None</td><td>Needs third-party tools</td></tr>
+    <tr><td><b>Service Mapping</b></td><td>Native Discovery + dynamic models across hybrid</td><td>Assets/CMDB, manual dependencies</td><td>Powerful but implementation-dependent</td></tr>
+    <tr><td><b>Change Risk</b></td><td>AI-scored validation + CAB Workspace</td><td>Change mgmt, less automation</td><td>Strong workflow governance</td></tr>
+    <tr><td><b>ITSM + ITOM</b></td><td>ServiceOps — tightly coupled</td><td>ITSM strong, ops additive</td><td>Broad but modular licensing</td></tr>
+    <tr><td><b>Deployment</b></td><td>Cloud, on-prem, hybrid</td><td>Cloud-first (DC EOL 2029)</td><td>Cloud / private cloud</td></tr>
+    <tr><td><b>DORA</b></td><td>Explicit resilience positioning + refs (BBVA, Nationwide)</td><td>Configurable, more effort</td><td>Strong GRC + Vendor Risk</td></tr>
+  </table>
+  <div class="card" style="margin-top:16px;"><h3>26.3 highlights to name-drop</h3><ul><li><b>Ticket Resolver</b> — autonomous low-risk remediation within customer-set boundaries</li><li><b>Change Coordinator</b> — AI risk scoring + structured validation reports</li><li><b>Agent Outcomes</b> — measurable value (avoided incidents, freed capacity)</li><li><b>Open-first</b> — bring-your-own LLM, integrates with existing tools</li></ul></div>
+</section>
+<section class="slide" id="s6">
+  <h2>6. Your Formula + Opening Line</h2>
+  <div class="pill-row">
+    <div class="pill"><b>Pipeline</b>Renewal as compelling event → usage review → expansion or displacement</div>
+    <div class="pill"><b>Multithreading</b>Economic buyer · technical evaluator · champion · compliance</div>
+    <div class="pill"><b>Orchestration</b>You own outcome & stakeholders; SE, overlay, partner execute</div>
+  </div>
+  <h3 style="margin-top:24px;margin-bottom:8px;">Opening (30 seconds)</h3>
+  <div class="quote">"I've been an Enterprise AE at Atlassian focused on large accounts, including banks and insurers. My pipeline is built mainly around renewals as the compelling event, then expansion or competitive displacement. The largest outcomes came from cloud migrations and replacements of ServiceNow or Ivanti where the customer was already on Atlassian. What I've seen: Atlassian is strong on DevOps and collaboration, but in regulated financial services the requirements around operational resilience, hybrid visibility, and DORA go further. BMC Helix is stronger exactly there. That's why I'm here."</div>
+  <div class="grid grid-2" style="margin-top:16px;">
+    <div class="card"><h3>If asked about lost deals</h3><p>"We lost a regulated account because they required on-prem/hybrid and Atlassian's cloud-first strategy couldn't meet it. That's a real gap — and it's precisely where BMC's deployment flexibility wins."</p></div>
+    <div class="card"><h3>If asked vs ServiceNow</h3><p>"ServiceNow is the broader platform — strong on GRC and cross-department workflow. BMC wins where deep ServiceOps and native hybrid/mainframe visibility matter. In Benelux financial services, that still decides deals."</p></div>
+  </div>
+  <div class="footer-note">Prepared for BMC Helix Sales Account Manager (Benelux) interview · Anonymized cases · Not for external distribution</div>
+</section>
+</main>
+<script>
+  const slides = document.querySelectorAll('.slide);
+  const nav = document.getElementById('nav);
+  const titles = ['Pipeline','Stakeholders','Cases','Lost Deal','BMC Bridge','Formula'];
+  slides.forEach((s,i) => { const b = document.createElement('button'); b.textContent = (i+1)+'. '+titles[i]; b.onclick = () => show(i); nav.appendChild(b); });
+  function show(i) { slides.forEach((s,j)=>s.classList.toggle('active',j===i)); nav.querySelectorAll('button').forEach((b,j)=>b.classList.toggle('active',j===i)); window.scrollTo({top:0,behavior:'smooth}); }
+  document.addEventListener('keydown', e => { const cur=[...slides].findIndex(s=>s.classList.contains('active)); if(e.key==='ArrowRight'||e.key==='PageDown') show(Math.min(cur+1,slides.length-1)); if(e.key==='ArrowLeft'||e.key==='PageUp') show(Math.max(cur-1,0)); });
+</script>
+</body>
+</html>
